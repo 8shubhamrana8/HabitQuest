@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/df44cd2f-8fc1-4821-a2e9-a8b7b2cf34ee
+
 <div align="center">
 
 # 🎯 HabitQuest
@@ -6,7 +10,6 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![Django](https://img.shields.io/badge/Django-5.x-green.svg?style=flat&logo=django&logoColor=white)](https://www.djangoproject.com/)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-yellow.svg?style=flat&logo=javascript&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![License](https://img.shields.io/badge/License-MIT-orange.svg)](LICENSE)
 
 </div>
 
@@ -27,8 +30,13 @@
 * **📋 Dynamic Habit Management**:
   * Create, edit, and organize daily logs and custom habits seamlessly.
   * Interactive UI toggles powered by vanilla JavaScript for instant feedback.
+ 
+  <img width="100%" height="auto" alt="ScreenRecording2026-11-06020725-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/cfc74f48-ac4c-4501-8412-8e427c2dcf10" />
+  <img width="100%" height="auto" alt="ScreenRecording2026-11-06020800-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/f2f6f293-d542-4e8c-8987-ed9969902291" />
+
 * **📊 Analytics & History**:
   * Visual overview of past performance and completion logs.
+
 * **🔒 Authentication & Security**:
   * Secure user registration, login, and session management using Django's built-in authentication system.
   
