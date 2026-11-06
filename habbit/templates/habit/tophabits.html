@@ -1,0 +1,62 @@
+{% extends 'habit/layout.html' %} {% block body %}
+<div class="container text-center mt-5 mb-5 pt-4">
+  <h1 class="display-4 fw-bold text-white">Top Habits</h1>
+  <p class="lead text-light">
+    The longest unbroken streaks across the entire community.
+  </p>
+</div>
+
+<div class="container pb-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+      
+      {% if leaderboard %}
+      <div class="list-group gap-2">
+        {% for habit in leaderboard %}
+        <div 
+          class="list-group-item border border-secondary text-white rounded-3 shadow p-3 d-flex align-items-center justify-content-between flex-wrap gap-3"
+          style="background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px);"
+        >
+          <!-- Left Side: Rank, Habit Name & User Link -->
+          <div class="d-flex align-items-center gap-3">
+            <span class="badge bg-primary fs-6 px-3 py-2 fw-bold rounded-pill">
+              #{{ forloop.counter }}
+            </span>
+
+            <div>
+              <h5 class="mb-0 fw-bold text-white">{{ habit.name }}</h5>
+              <small class="text-secondary">
+                by <a href="{% url 'dashboard' habit.user.id %}" class="link-light fw-semibold text-decoration-none">@{{ habit.user.username }}</a>
+              </small>
+            </div>
+          </div>
+
+          <!-- Right Side: Streaks Metrics -->
+          <div class="d-flex align-items-center gap-4 ms-auto ms-sm-0">
+            <div class="text-end">
+              <span class="fs-5 fw-bold text-success d-block lh-1">
+                {{ habit.current_streak }} 🔥
+              </span>
+              <small class="text-secondary" style="font-size: 0.75rem;">Current</small>
+            </div>
+
+            <div class="border-start border-secondary ps-3 text-end">
+              <span class="fs-5 fw-bold text-info d-block lh-1">
+                {{ habit.longest_streak }} ⚡
+              </span>
+              <small class="text-secondary" style="font-size: 0.75rem;">Longest</small>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="text-center text-secondary py-4">
+        <p class="fs-5 mb-0">No habits tracked yet.</p>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{% endblock body %}

@@ -1,0 +1,153 @@
+{% extends 'habit/layout.html' %} {% load static %} {% block body %}
+<div class="container mt-5">
+  {% csrf_token %}
+  <div class="row mb-5 justify-content-center">
+    <div class="col-md-8 text-center">
+      <div class="card shadow border-secondary p-4" style="background: rgb(0, 0, 0, 0.7); backdrop-filter: blur(10px);">
+        <h2 class="fw-bold mb-3 text-white">
+          {% if request.user == profile_user %}Hi{% else %}Dashboard:{% endif %}
+          @{{ profile_user.username }}
+        </h2>
+        <div class="d-flex justify-content-around">
+          {% if profile_user.current_rank.rank_badge %}
+          <img
+            src="{{ profile_user.current_rank.rank_badge.url }}"
+            id="user-badge"
+            alt="Badge"
+            class="mb-3 rounded-circle border border-primary"
+            style="width: 90px; height: 90px; object-fit: cover"
+          />
+          {% endif %}
+          <div class="d-flex justify-content-center align-items-center">
+            <h2 class="text-secondary" id="user-rank">
+              {{ profile_user.current_rank.rank_title|default:"Recruit" }}
+            </h2>
+          </div>
+        </div>
+        <span class="badge bg-primary fs-5 mt-2"
+          >Total XP:
+          <span id="user-total-xp">{{ profile_user.total_xp }}</span></span
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-5 md-8">
+    <h3 class="fw-bold mb-3 text-white border-bottom border-secondary pb-2">
+      Active Habits
+    </h3>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mx-auto">
+      {% for habit in habits %}
+      <div class="col" id="habit-card-{{ habit.id }}">
+        <div class="card h-100 shadow border-secondary" style="background: rgb(0, 0, 0, 0.7); backdrop-filter: blur(10px);">
+          <div
+            class="card-body d-flex justify-content-between align-items-center"
+          >
+            <div>
+              <h5 class="card-title fw-bold text-white mb-1">
+                {{ habit.name }}
+              </h5>
+              {% if habit.description%}
+              <p class="card-text text-secondary small mb-1">
+                {{ habit.description }}
+              </p>
+              {% endif %}
+              <p class="card-text text-secondary small mb-1">
+                Streak:
+                <span id="streak-{{ habit.id }}" class="fw-bold text-primary"
+                  >{{ habit.current_streak }}</span
+                >
+                (Best:
+                <span id="longest-{{ habit.id }}"
+                  >{{ habit.longest_streak }}</span
+                >)
+              </p>
+              <span
+                id="last-logged-{{ habit.id }}"
+                class="badge bg-secondary text-dark mt-1"
+              >
+                Last: {{ habit.last_logged_date|default:"Never" }}
+              </span>
+            </div>
+            {% if request.user == profile_user %}
+            <div class="d-flex flex-column align-items-end gap-2">
+              <div class="form-check form-switch fs-3 mb-0">
+                <input
+                  class="form-check-input habit-toggle"
+                  type="checkbox"
+                  role="switch"
+                  data-habit-id="{{ habit.id }}"
+                  {% if habit.completed_today %}
+                    checked disabled
+                  {% endif %}
+                />
+              </div>
+              <button
+                class="btn btn-sm btn-outline-danger delete-habit-btn"
+                data-habit-id="{{ habit.id }}"
+              >
+                Delete
+              </button>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12">
+        <p class="text-secondary">No habits tracked yet.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <h3 class="fw-bold mb-3 text-white border-bottom border-secondary pb-2">
+      Social Wall
+    </h3>
+    <div class="col-md-8 mx-auto">
+      <div class="card shadow border-secondary" style="background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px);">
+        <div class="card-body" id="comments-container">
+          {% for comment in comments %}
+          <div class="mb-3 border-bottom border-secondary pb-2">
+            <p class="mb-1 fw-bold text-primary">
+              @{{ comment.poster.username }}
+              <span class="text-secondary small fw-normal"
+                >({{ comment.formatted_time }})</span
+              >
+            </p>
+            <p class="mb-0 text-light">{{ comment.comment }}</p>
+          </div>
+          {% empty %}
+          <p class="text-secondary text-center" id="no-comments-msg">
+            No comments yet. Say hello!
+          </p>
+          {% endfor %}
+        </div>
+        {% if request.user.is_authenticated %}
+        <div class="card-footer border-0 mt-2">
+          <div class="input-group">
+            <input
+              type="text"
+              id="comment-input"
+              class="form-control"
+              placeholder="Leave a comment..."
+            />
+            <button
+              class="btn btn-primary"
+              id="post-comment-btn"
+              data-profile-id="{{ profile_user.id }}"
+            >
+              Post
+            </button>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'dashboard.js' %}"></script>
+<script src="{% static 'comment.js' %}"></script>
+{% endblock body %}

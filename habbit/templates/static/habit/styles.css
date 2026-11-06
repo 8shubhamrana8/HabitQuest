@@ -1,0 +1,5 @@
+body {
+    background: linear-gradient(135deg, #2fbea1 0.000%, #2fbea1 20.000%, #29a898 calc(20.000% + 1px), #29a898 40.000%, #24868e calc(40.000% + 1px), #24868e 60.000%, #1f5a83 calc(60.000% + 1px), #1f5a83 80.000%, #192779 calc(80.000% + 1px) 100.000%);
+    background-attachment: fixed;
+    font-family: 'Brass Mono', monospace;
+}
