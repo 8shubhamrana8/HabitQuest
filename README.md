@@ -1,7 +1,4 @@
 
-
-https://github.com/user-attachments/assets/df44cd2f-8fc1-4821-a2e9-a8b7b2cf34ee
-
 <div align="center">
 
 # 🎯 HabitQuest
